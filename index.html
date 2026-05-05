@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - DGETI</title>
+
+<style>
+:root{
+  --primary:#621132;
+  --primary-light:#9D2449;
+  --white:#fff;
+  --border:#ddd;
+  --text-muted:#777;
+}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--primary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+}
+
+/* CONTENEDOR */
+.auth-split{
+  display:flex;
+  width:900px;
+  max-width:95%;
+  background:#fff;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+/* PANEL IZQUIERDO */
+.auth-brand-panel{
+  width:40%;
+  background:var(--primary);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+}
+
+.brand-panel-title{
+  font-size:28px;
+  margin-top:10px;
+}
+
+.brand-panel-sub{
+  font-size:14px;
+  opacity:.8;
+}
+
+/* PANEL DERECHO */
+.auth-form-panel{
+  flex:1;
+  padding:40px;
+}
+
+.form-heading{
+  font-size:26px;
+  margin-bottom:5px;
+  color:var(--primary);
+}
+
+.form-subheading{
+  color:var(--text-muted);
+  margin-bottom:25px;
+}
+
+.field-group{
+  margin-bottom:18px;
+}
+
+.field-label{
+  font-size:13px;
+  font-weight:bold;
+  display:block;
+  margin-bottom:6px;
+}
+
+.field{
+  width:100%;
+  padding:10px;
+  border:1px solid var(--border);
+  border-radius:8px;
+}
+
+.btn-primary{
+  width:100%;
+  padding:12px;
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.btn-primary:hover{
+  background:var(--primary-light);
+}
+
+/* LINKS */
+.auth-links{
+  margin-top:15px;
+  text-align:center;
+  font-size:14px;
+}
+
+.auth-links a{
+  color:var(--primary);
+}
+
+/* DEMO */
+.demo-credentials{
+  margin-top:25px;
+  padding:15px;
+  background:#f5f5f5;
+  border-radius:10px;
+}
+
+.demo-item{
+  padding:8px;
+  cursor:pointer;
+}
+
+.demo-item:hover{
+  background:#eee;
+}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .auth-split{
+    flex-direction:column;
+  }
+  .auth-brand-panel{
+    width:100%;
+  }
+}
+</style>
+
+<script>
+function togglePassword(id){
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
+
+function fillDemo(email, rol){
+  document.getElementById("email").value = email;
+  document.getElementById("password").value = "password";
+  document.getElementById("rol").value = rol;
+}
+</script>
+
+</head>
+<body>
+
+<div class="auth-split">
+
+  <!-- PANEL IZQUIERDO -->
+  <div class="auth-brand-panel">
+    <div>
+      <h2 class="brand-panel-title">DGETI</h2>
+      <p class="brand-panel-sub">Sistema de Justificantes</p>
+    </div>
+  </div>
+
+  <!-- FORMULARIO -->
+  <div class="auth-form-panel">
+
+    <h1 class="form-heading">Iniciar sesión</h1>
+    <p class="form-subheading">Ingresa tus credenciales</p>
+
+    <form>
+
+      <div class="field-group">
+        <label class="field-label">Correo</label>
+        <input type="email" id="email" class="field" placeholder="correo@cetis.edu.mx">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Contraseña</label>
+        <input type="password" id="password" class="field">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Rol</label>
+        <select id="rol" class="field">
+          <option value="alumno">Alumno</option>
+          <option value="docente">Docente</option>
+          <option value="admin">Administrador</option>
+        </select>
+      </div>
+
+      <button class="btn-primary">Iniciar sesión</button>
+
+    </form>
+
+    <div class="auth-links">
+      <a href="#">¿Olvidaste tu contraseña?</a> ·
+      <a href="#">Crear cuenta</a>
+    </div>
+
+    <div class="demo-credentials">
+      <p><b>Prueba:</b></p>
+      <div class="demo-item" onclick="fillDemo('alumno@cetis.edu.mx','alumno')">Alumno</div>
+      <div class="demo-item" onclick="fillDemo('docente@cetis.edu.mx','docente')">Docente</div>
+      <div class="demo-item" onclick="fillDemo('admin@cetis.edu.mx','admin')">Admin</div>
+      <p>Contraseña: <b>password</b></p>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
