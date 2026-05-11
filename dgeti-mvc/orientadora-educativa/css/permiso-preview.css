@@ -1,0 +1,279 @@
+/* ===== ESTILOS PARA EL JUSTIFICANTE OFICIAL ===== */
+.permiso-modal {
+    max-width: 800px;
+}
+
+.permiso-body {
+    background: white;
+    padding: 2rem;
+}
+
+.permiso-documento {
+    background: white;
+    font-family: 'Times New Roman', Georgia, serif;
+    color: #4E232E;
+    line-height: 1.5;
+}
+
+.encabezado {
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #9D2449;
+    padding-bottom: 1rem;
+}
+
+.logo-permiso {
+    max-height: 80px;
+    margin-bottom: 1rem;
+    object-fit: contain;
+}
+
+.titulos-oficiales h2 {
+    font-size: 1rem;
+    color: #4E232E;
+    margin: 0;
+    font-weight: bold;
+}
+
+.titulos-oficiales h3 {
+    font-size: 0.9rem;
+    color: #4E232E;
+    margin: 0.2rem 0;
+    font-weight: 600;
+}
+
+.titulos-oficiales h4 {
+    font-size: 0.85rem;
+    color: #9D2449;
+    margin: 0.2rem 0;
+    font-weight: 500;
+}
+
+.folio {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    background: #f8f5ed;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.folio p {
+    margin: 0;
+}
+
+.folio strong {
+    color: #4E232E;
+}
+
+.cuerpo-permiso {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.otorga-texto {
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+}
+
+.otorga-texto strong {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #9D2449;
+}
+
+.datos-solicitante {
+    background: #f8f5ed;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.datos-solicitante p {
+    margin: 0.3rem 0;
+}
+
+.periodo-autorizado {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid #9D2449;
+}
+
+.periodo-autorizado p {
+    margin: 0.3rem 0;
+}
+
+.comentario-oficial {
+    background: #f8f5ed;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.validez-texto {
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: 1.5rem;
+    color: #B38E5D;
+    border-top: 1px dashed #D4C19C;
+    padding-top: 1rem;
+}
+
+.firma-section {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.firma-linea {
+    margin-top: 1rem;
+}
+
+.firma-linea p {
+    margin: 0.2rem 0;
+}
+
+.firma-linea p:first-child {
+    margin-bottom: 1rem;
+}
+
+/* Concentrado semestral dentro del permiso */
+.concentrado-semestral {
+    border: 2px solid #9D2449;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.concentrado-header {
+    background: #9D2449;
+    color: white;
+    text-align: center;
+    padding: 0.3rem;
+    font-weight: bold;
+}
+
+.concentrado-body {
+    padding: 1rem;
+}
+
+.concentrado-body h3 {
+    text-align: center;
+    color: #4E232E;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tabla-concentrado {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0;
+}
+
+.tabla-concentrado th,
+.tabla-concentrado td {
+    border: 1px solid #D4C19C;
+    padding: 0.5rem;
+    text-align: center;
+    color: #4E232E;
+}
+
+.tabla-concentrado th {
+    background: #f8f5ed;
+    font-weight: 600;
+}
+
+.info-adicional {
+    text-align: right;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    color: #B38E5D;
+}
+
+/* Solicitud de justificante dentro del permiso */
+.solicitud-justificante {
+    border: 2px solid #B38E5D;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.solicitud-header {
+    background: #B38E5D;
+    color: white;
+    text-align: center;
+    padding: 0.3rem;
+    font-weight: bold;
+}
+
+.solicitud-body {
+    padding: 1rem;
+}
+
+.solicitud-presente {
+    font-weight: bold;
+    margin: 0.5rem 0;
+    color: #4E232E;
+}
+
+.motivos-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.motivo-tag {
+    background: #f8f5ed;
+    padding: 0.2rem 0.8rem;
+    border-radius: 15px;
+    color: #4E232E;
+    border: 1px solid #D4C19C;
+}
+
+.info-footer-solicitud {
+    margin-top: 0.8rem;
+    padding: 0.5rem;
+    background: #f8f5ed;
+    border-radius: 8px;
+}
+
+@media print {
+    .modal-overlay {
+        background: white;
+        position: relative;
+    }
+    
+    .modal-content {
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .modal-header, .modal-footer {
+        display: none;
+    }
+    
+    .permiso-body {
+        padding: 0;
+    }
+    
+    .modal-close {
+        display: none;
+    }
+    
+    .encabezado {
+        border-bottom: 1px solid #9D2449;
+    }
+    
+    .firma-linea p:first-child {
+        border-top: 1px solid #4E232E;
+        padding-top: 1rem;
+    }
+    
+    .tabla-concentrado th,
+    .tabla-concentrado td {
+        border-color: #4E232E;
+    }
+}

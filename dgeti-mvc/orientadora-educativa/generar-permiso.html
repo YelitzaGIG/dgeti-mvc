@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justificante Oficial - CBTIS 199</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #ffffff; padding: 2rem; font-family: 'Times New Roman', Georgia, serif; }
+        
+        .permiso-container { max-width: 800px; margin: 0 auto; background: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); overflow: hidden; }
+        .permiso-header { background: linear-gradient(135deg, #621132, #9D2449); color: white; padding: 1rem; text-align: center; }
+        .permiso-body { padding: 2rem; }
+        
+        .encabezado { text-align: center; margin-bottom: 2rem; border-bottom: 2px solid #9D2449; padding-bottom: 1rem; }
+        .encabezado h2 { font-size: 1.2rem; color: #4E232E; }
+        .encabezado h3 { font-size: 1rem; color: #9D2449; }
+        
+        .folio-box { display: flex; justify-content: space-between; background: #f8f5ed; padding: 0.5rem 1rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        .folio-box p { margin: 0; font-size: 0.9rem; }
+        .folio-box strong { color: #4E232E; }
+        
+        .otorga-texto { text-align: center; font-size: 1.2rem; margin: 1rem 0; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; color: #9D2449; }
+        
+        .datos-alumno { background: #f8f5ed; padding: 1rem; border-radius: 12px; margin: 1rem 0; }
+        .datos-alumno p { margin: 0.3rem 0; }
+        
+        .periodo-box { border-left: 3px solid #9D2449; padding-left: 1rem; margin: 1rem 0; }
+        .periodo-box p { margin: 0.3rem 0; }
+        
+        .firma { margin-top: 2rem; text-align: center; border-top: 1px solid #D4C19C; padding-top: 1.5rem; }
+        
+        .button-group { display: flex; justify-content: center; gap: 1rem; padding: 1rem; background: #f8f5ed; }
+        .btn { padding: 0.6rem 1.2rem; border-radius: 30px; border: none; cursor: pointer; font-weight: bold; transition: 0.2s; font-family: 'Segoe UI', system-ui; }
+        .btn-primary { background: #9D2449; color: white; }
+        .btn-primary:hover { background: #621132; }
+        .btn-outline { background: transparent; border: 1px solid #9D2449; color: #9D2449; }
+        .btn-outline:hover { background: #9D2449; color: white; }
+        
+        @media print {
+            body { background: white; padding: 0; }
+            .button-group { display: none; }
+            .permiso-container { box-shadow: none; }
+            .permiso-header { background: #9D2449; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+        
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .permiso-body { padding: 1rem; }
+        }
+    </style>
+
+<style>
+.sidebar{position:fixed;left:0;top:0;width:250px;height:100vh;background:linear-gradient(180deg,#4b001f,#621132);color:#fff;padding:20px;z-index:999;}
+.sidebar h2{margin:0;font-size:28px;}
+.sidebar p{color:#d4c19c;margin-bottom:30px;}
+.sidebar nav{display:flex;flex-direction:column;gap:12px;}
+.sidebar nav a{text-decoration:none;color:white;padding:12px;border-radius:10px;transition:.2s;}
+.sidebar nav a:hover{background:#9D2449;}
+body{margin-left:250px !important;}
+@media(max-width:768px){.sidebar{width:100%;height:auto;position:relative;}body{margin-left:0 !important;}}
+</style>
+</head>
+<body><div class="sidebar">
+<div><h2>CBTIS 199</h2><p>ASISTENCIAS</p><nav>
+<a href="index.html">📋 Justificantes</a>
+<a href="historial.html">📜 Historial por Grupo</a>
+<a href="#">📤 Exportar CSV</a>
+<a href="configuracion.html">⚙️ Panel Docente</a>
+</nav></div>
+</div>
+<div class="permiso-container">
+    <div class="permiso-header">
+        <h2>JUSTIFICANTE OFICIAL DE INASISTENCIA</h2>
+    </div>
+    <div class="permiso-body">
+        <div class="encabezado">
+            <h2>CENTRO DE BACHILLERATO TECNOLÓGICO INDUSTRIAL Y DE SERVICIOS No. 199</h2>
+            <h3>SERVICIOS ESCOLARES</h3>
+        </div>
+        
+        <div class="folio-box">
+            <p><strong>Folio:</strong> <span id="folioNumero">---</span></p>
+            <p><strong>Fecha de emisión:</strong> <span id="fechaEmision">---</span></p>
+        </div>
+        
+        <p>La que suscribe, <strong>Mtra. Fabiola Guadalupe Gamboa Pérez</strong>, Jefa del Departamento de Servicios Escolares del CBTIS 199,</p>
+        
+        <div class="otorga-texto">O T O R G A   E L   P R E S E N T E</div>
+        
+        <p><strong>JUSTIFICANTE DE INASISTENCIA</strong> al alumno(a):</p>
+        
+        <div class="datos-alumno">
+            <p><strong>Nombre:</strong> <span id="permisoNombre">---</span></p>
+            <p><strong>Matrícula:</strong> <span id="permisoMatricula">---</span> | <strong>Grupo:</strong> <span id="permisoGrupo">---</span></p>
+            <p><strong>Correo electrónico:</strong> <span id="permisoEmail">---</span></p>
+        </div>
+        
+        <p>Por las siguientes falta(s) justificada(s) por motivo de:</p>
+        
+        <div class="periodo-box">
+            <p><strong>Motivo:</strong> <span id="permisoMotivo">---</span></p>
+            <p><strong>Período de ausencia:</strong> Del <span id="periodoInicio">---</span> al <span id="periodoFin">---</span></p>
+            <p><strong>Total de días justificados:</strong> <span id="totalDias">---</span> día(s)</p>
+        </div>
+        
+        <p><strong>Observaciones:</strong> <span id="comentarioJusti">---</span></p>
+        
+        <div style="margin: 1rem 0; padding: 0.5rem; background: #f8f5ed; border-radius: 8px; font-size: 0.8rem;">
+            <strong>Nota:</strong> El presente justificante no exenta al alumno de presentar trabajos, tareas o actividades pendientes.
+        </div>
+        
+        <div class="firma">
+            <p>_________________________</p>
+            <p><strong>Mtra. Fabiola Guadalupe Gamboa Pérez</strong></p>
+            <p>Jefa de Servicios Escolares</p>
+        </div>
+    </div>
+    <div class="button-group">
+        <button class="btn btn-outline" id="cerrarBtn">Cerrar</button>
+        <button class="btn btn-primary" id="imprimirBtn">🖨️ Imprimir</button>
+    </div>
+</div>
+
+<script>
+    let datosJustificante = null;
+    
+    function formatearFechaLarga(fecha) {
+        if (!fecha) return '-';
+        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        const f = new Date(fecha);
+        return `${f.getDate()} de ${meses[f.getMonth()]} de ${f.getFullYear()}`;
+    }
+    
+    function cargarDatos() {
+        const datosGuardados = sessionStorage.getItem('justificanteAprobado');
+        
+        if (datosGuardados) {
+            datosJustificante = JSON.parse(datosGuardados);
+        } else {
+            // Datos de ejemplo si no hay nada guardado
+            datosJustificante = {
+                folio: 'JUS-2026-0001',
+                alumno: { nombre: 'Ana López García', matricula: 'MAT-001', grupo: '4° "A"', email: 'ana@cbtis199.edu.mx' },
+                tipo: 'Justificante médico',
+                periodoAusencia: { inicio: new Date().toISOString(), fin: new Date().toISOString() },
+                diasAutorizados: 3,
+                comentario: 'Se autoriza justificante por motivos médicos.',
+                fechaAprobacion: new Date().toISOString()
+            };
+        }
+        
+        document.getElementById('folioNumero').textContent = datosJustificante.folio || 'JUS-001';
+        document.getElementById('fechaEmision').textContent = formatearFechaLarga(datosJustificante.fechaAprobacion || new Date());
+        document.getElementById('permisoNombre').textContent = datosJustificante.alumno?.nombre || '-';
+        document.getElementById('permisoMatricula').textContent = datosJustificante.alumno?.matricula || '-';
+        document.getElementById('permisoGrupo').textContent = datosJustificante.alumno?.grupo || '-';
+        document.getElementById('permisoEmail').textContent = datosJustificante.alumno?.email || 'No registrado';
+        document.getElementById('permisoMotivo').textContent = datosJustificante.tipo || '-';
+        document.getElementById('periodoInicio').textContent = datosJustificante.periodoAusencia?.inicio ? formatearFechaLarga(datosJustificante.periodoAusencia.inicio) : '-';
+        document.getElementById('periodoFin').textContent = datosJustificante.periodoAusencia?.fin ? formatearFechaLarga(datosJustificante.periodoAusencia.fin) : '-';
+        document.getElementById('totalDias').textContent = datosJustificante.diasAutorizados || 0;
+        document.getElementById('comentarioJusti').textContent = datosJustificante.comentario || 'Sin comentarios';
+    }
+    
+    function imprimirJustificante() {
+        window.print();
+    }
+    
+    function cerrarVentana() {
+        window.close();
+        // Si no se puede cerrar, redirigir al dashboard
+        setTimeout(() => { window.location.href = 'index.html'; }, 100);
+    }
+    
+    document.getElementById('cerrarBtn').addEventListener('click', cerrarVentana);
+    document.getElementById('imprimirBtn').addEventListener('click', imprimirJustificante);
+    
+    cargarDatos();
+</script>
+</body>
+</html>

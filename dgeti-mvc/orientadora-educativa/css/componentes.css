@@ -1,0 +1,213 @@
+/* =============================================
+   COMPONENTES REUTILIZABLES - CBTIS 199
+   PALETA INSTITUCIONAL: #621132 | #9D2449 | #4E232E | #56242A | #B38E5D | #D4C19C
+   ============================================= */
+
+/* ----- RESET Y BASE ----- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #D4C19C;
+    color: #4E232E;
+}
+
+/* ----- BOTONES GENERALES ----- */
+.btn, .btn-primary, .btn-danger, .btn-success, .btn-outline, 
+.btn-volver, .btn-guardar, .btn-cancelar {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background-color: #9D2449;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #621132;
+}
+
+.btn-danger {
+    background-color: #621132;
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #4E232E;
+}
+
+.btn-success {
+    background-color: #B38E5D;
+    color: white;
+}
+.btn-success:hover {
+    background-color: #9D2449;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #9D2449;
+    color: #9D2449;
+}
+.btn-outline:hover {
+    background: #9D2449;
+    color: white;
+}
+
+.btn-volver {
+    background: #9D2449;
+    color: white;
+}
+.btn-volver:hover {
+    background: #621132;
+}
+
+.btn-guardar {
+    background: #9D2449;
+    color: white;
+}
+.btn-guardar:hover {
+    background: #621132;
+}
+
+.btn-cancelar {
+    background: #f0f0f0;
+    color: #4E232E;
+}
+.btn-cancelar:hover {
+    background: #D4C19C;
+}
+
+/* ----- TARJETAS ----- */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-left: 3px solid #9D2449;
+}
+
+/* ----- INPUTS ----- */
+input, select, textarea {
+    font-family: inherit;
+    border: 1px solid #D4C19C;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #9D2449;
+    box-shadow: 0 0 0 2px rgba(157,36,73,0.1);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #4E232E;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* ----- LOADER ----- */
+.loader {
+    border: 3px solid #D4C19C;
+    border-top: 3px solid #9D2449;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ----- TOAST ----- */
+.toast-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4E232E;
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    z-index: 1100;
+    animation: fadeInOut 3s ease;
+}
+.toast-notification.success {
+    background: #9D2449;
+}
+.toast-notification.error {
+    background: #621132;
+}
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(20px); }
+    15% { opacity: 1; transform: translateY(0); }
+    85% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(20px); }
+}
+
+/* ========== RESPONSIVE COMPONENTES ========== */
+/* Celulares (menos de 768px) */
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;  /* Una sola columna */
+        gap: 0.5rem;
+    }
+    
+    .btn, .btn-primary, .btn-danger, .btn-success, 
+    .btn-outline, .btn-volver, .btn-guardar, .btn-cancelar {
+        width: 100%;                 /* Botones ocupan todo el ancho */
+        justify-content: center;
+        padding: 0.7rem;
+    }
+    
+    .card {
+        padding: 1rem;
+        margin: 0.5rem;
+    }
+    
+    .toast-notification {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        text-align: center;
+        font-size: 0.85rem;
+    }
+}
+
+/* Tabletas (768px a 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .form-row {
+        gap: 0.8rem;
+    }
+    
+    .btn, .btn-primary, .btn-danger {
+        padding: 0.5rem 1rem;
+    }
+}

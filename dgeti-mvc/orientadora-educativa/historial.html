@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Justificantes - CBTIS 199</title>
+    <style>
+        /* =============================================
+           PALETA INSTITUCIONAL — CBTIS 199
+           7421 #621132 | 7420 #9D2449 | 504 #4E232E
+           490 #56242A | 465 #B38E5D | 468 #D4C19C
+           ============================================ */
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui; }
+        body { background: #ffffff; padding: 2rem; }
+        
+        /* Contenedor principal */
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; padding: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem; border-bottom: 2px solid #D4C19C; padding-bottom: 1rem; }
+        .header h1 { color: #4E232E; display: flex; align-items: center; gap: 0.5rem; font-size: 1.8rem; }
+        .header-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn-volver { background: #9D2449; color: white; border: none; padding: 0.5rem 1rem; border-radius: 30px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+        .btn-volver:hover { background: #621132; transform: scale(1.02); }
+        .btn-excel { background: #B38E5D; color: white; border: none; padding: 0.5rem 1rem; border-radius: 30px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+        .btn-excel:hover { background: #9D2449; transform: scale(1.02); }
+        
+        /* Tarjetas de resumen */
+        .resumen { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .resumen-card { background: #f8f5ed; border-radius: 16px; padding: 0.8rem 1.2rem; text-align: center; flex: 1; min-width: 120px; border-left: 4px solid #9D2449; transition: transform 0.2s; }
+        .resumen-card:hover { transform: translateY(-3px); }
+        .resumen-card .numero { font-size: 1.8rem; font-weight: bold; color: #9D2449; }
+        .resumen-card .label { font-size: 0.7rem; color: #4E232E; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+        
+        /* Filtros */
+        .filtros { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; background: #f8f5ed; padding: 1rem; border-radius: 20px; align-items: flex-end; }
+        .filtro-group { flex: 1; min-width: 150px; }
+        .filtro-group label { display: block; font-size: 0.7rem; font-weight: bold; color: #4E232E; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .filtro-group input, .filtro-group select { width: 100%; padding: 0.5rem; border-radius: 12px; border: 1px solid #D4C19C; font-size: 0.9rem; transition: all 0.2s; background: white; }
+        .filtro-group input:focus, .filtro-group select:focus { outline: none; border-color: #9D2449; box-shadow: 0 0 0 2px rgba(157,36,73,0.1); }
+        .btn-filtrar { background: #9D2449; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 30px; cursor: pointer; font-weight: bold; transition: all 0.2s; height: 40px; }
+        .btn-filtrar:hover { background: #621132; transform: scale(1.02); }
+        
+        /* Tabla */
+        .table-container { overflow-x: auto; border-radius: 16px; }
+        table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+        th, td { padding: 0.8rem; text-align: left; border-bottom: 1px solid #D4C19C; }
+        th { background: #f8f5ed; color: #4E232E; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        td { font-size: 0.85rem; color: #4E232E; }
+        tr:hover { background: rgba(179,142,93,0.05); }
+        
+        /* Badges de estado */
+        .badge { padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; font-weight: bold; display: inline-block; }
+        .pendiente { background: rgba(179,142,93,0.15); color: #B38E5D; }
+        .aprobado { background: rgba(157,36,73,0.1); color: #9D2449; }
+        .rechazado { background: rgba(98,17,50,0.1); color: #621132; }
+        
+        /* Botones de acción */
+        .acciones-historial { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .btn-icon { background: none; border: none; font-size: 1rem; cursor: pointer; padding: 0.3rem; border-radius: 6px; transition: all 0.2s; }
+        .btn-icon:hover { background: #f0f0f0; transform: scale(1.1); }
+        .btn-ver { color: #9D2449; }
+        .btn-email { color: #B38E5D; }
+        .btn-pdf { color: #dc2626; }
+        
+        /* Tooltip para acciones */
+        .btn-icon { position: relative; }
+        .btn-icon:hover::after { content: attr(title); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #4E232E; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 10; }
+        
+        /* Toast */
+        .toast-notification { position: fixed; bottom: 20px; right: 20px; background: #4E232E; color: white; padding: 0.8rem 1.2rem; border-radius: 40px; z-index: 2000; animation: fadeOut 2.5s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.2); font-size: 0.85rem; }
+        .toast-notification.success { background: #9D2449; }
+        .toast-notification.error { background: #621132; }
+        @keyframes fadeOut { 0% { opacity: 1; transform: translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; transform: translateY(20px); visibility: hidden; } }
+        
+        /* Modal para ver detalles */
+        .modal-detalle { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(78,35,46,0.9); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-detalle-content { background: white; width: 90%; max-width: 600px; border-radius: 28px; max-height: 90vh; overflow-y: auto; border-top: 5px solid #9D2449; }
+        .modal-detalle-header { background: linear-gradient(135deg, #621132, #9D2449); padding: 1rem 1.5rem; border-radius: 28px 28px 0 0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-detalle-header h3 { color: white; }
+        .modal-detalle-close { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        .modal-detalle-body { padding: 1.5rem; }
+        .detalle-item { margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #D4C19C; }
+        .detalle-item label { font-size: 0.7rem; font-weight: bold; color: #B38E5D; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+        .detalle-item span { font-size: 0.95rem; color: #4E232E; display: block; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .container { padding: 1rem; }
+            .resumen { flex-direction: column; }
+            .filtros { flex-direction: column; align-items: stretch; }
+            .btn-filtrar { width: 100%; }
+            .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            th, td { padding: 0.5rem; font-size: 0.7rem; }
+            .acciones-historial { gap: 0.3rem; }
+            .btn-icon { font-size: 0.85rem; }
+        }
+        
+        @media (max-width: 480px) {
+            th, td { padding: 0.4rem; font-size: 0.65rem; }
+            .btn-icon { font-size: 0.75rem; }
+        }
+    </style>
+
+<style>
+.sidebar{position:fixed;left:0;top:0;width:250px;height:100vh;background:linear-gradient(180deg,#4b001f,#621132);color:#fff;padding:20px;z-index:999;}
+.sidebar h2{margin:0;font-size:28px;}
+.sidebar p{color:#d4c19c;margin-bottom:30px;}
+.sidebar nav{display:flex;flex-direction:column;gap:12px;}
+.sidebar nav a{text-decoration:none;color:white;padding:12px;border-radius:10px;transition:.2s;}
+.sidebar nav a:hover{background:#9D2449;}
+body{margin-left:250px !important;}
+@media(max-width:768px){.sidebar{width:100%;height:auto;position:relative;}body{margin-left:0 !important;}}
+</style>
+</head>
+<body><div class="sidebar">
+<div><h2>CBTIS 199</h2><p>ASISTENCIAS</p><nav>
+<a href="index.html">📋 Justificantes</a>
+<a href="historial.html">📜 Historial por Grupo</a>
+<a href="#">📤 Exportar CSV</a>
+<a href="configuracion.html">⚙️ Panel Docente</a>
+</nav></div>
+</div>
+<div class="container">
+    <!-- Header del historial -->
+    <div class="header">
+        <h1>
+            <span>📜</span> Historial de Justificantes
+        </h1>
+        <div class="header-buttons">
+            <button class="btn-excel" id="exportarExcelBtn">
+                📊 Exportar a Excel
+            </button>
+            <button class="btn-volver" id="volverBtn">
+                ← Volver al Dashboard
+            </button>
+        </div>
+    </div>
+    
+    <!-- Tarjetas de resumen estadístico -->
+    <div class="resumen">
+        <div class="resumen-card">
+            <div class="numero" id="totalCount">0</div>
+            <div class="label">Total</div>
+        </div>
+        <div class="resumen-card">
+            <div class="numero" id="aprobadosCount">0</div>
+            <div class="label">Aprobados</div>
+        </div>
+        <div class="resumen-card">
+            <div class="numero" id="pendientesCount">0</div>
+            <div class="label">Pendientes</div>
+        </div>
+        <div class="resumen-card">
+            <div class="numero" id="rechazadosCount">0</div>
+            <div class="label">Rechazados</div>
+        </div>
+    </div>
+    
+    <!-- Filtros de búsqueda -->
+    <div class="filtros">
+        <div class="filtro-group">
+            <label>🔍 Buscar</label>
+            <input type="text" id="searchHistorial" placeholder="Nombre / Folio / Matrícula">
+        </div>
+        <div class="filtro-group">
+            <label>📌 Estado</label>
+            <select id="estadoHistorial">
+                <option value="todos">Todos</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="aprobado">Aprobado</option>
+                <option value="rechazado">Rechazado</option>
+            </select>
+        </div>
+        <div class="filtro-group">
+            <label>🎓 Grupo</label>
+            <input type="text" id="grupoHistorial" placeholder="Ej: A">
+        </div>
+        <div class="filtro-group">
+            <label>📚 Grado</label>
+            <select id="gradoHistorial">
+                <option value="todos">Todos</option>
+                <option>1°</option>
+                <option>2°</option>
+                <option>3°</option>
+                <option>4°</option>
+                <option>5°</option>
+                <option>6°</option>
+            </select>
+        </div>
+        <div class="filtro-group">
+            <label>📅 Desde</label>
+            <input type="date" id="fechaDesdeHistorial">
+        </div>
+        <div class="filtro-group">
+            <label>📅 Hasta</label>
+            <input type="date" id="fechaHastaHistorial">
+        </div>
+        <button class="btn-filtrar" id="filtrarBtn">Filtrar</button>
+    </div>
+    
+    <!-- Tabla de historial -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Folio</th>
+                    <th>Alumno</th>
+                    <th>Matrícula</th>
+                    <th>Grado</th>
+                    <th>Grupo</th>
+                    <th>Correo</th>
+                    <th>Motivo</th>
+                    <th>Días</th>
+                    <th>Período</th>
+                    <th>Estado</th>
+                    <th>Fecha Registro</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyHistorial">
+                <tr>
+                    <td colspan="12" style="text-align:center; padding:2rem; color:#B38E5D;">
+                        Cargando datos...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal para ver detalles del justificante -->
+<div id="modalDetalle" style="display:none;" class="modal-detalle">
+    <div class="modal-detalle-content">
+        <div class="modal-detalle-header">
+            <h3>📋 Detalle del Justificante</h3>
+            <button class="modal-detalle-close" id="cerrarDetalleBtn">&times;</button>
+        </div>
+        <div class="modal-detalle-body" id="detalleBody">
+            <!-- Contenido dinámico -->
+        </div>
+    </div>
+</div>
+
+<script>
+    let datosCompletos = [];
+    
+    // Función para formatear fecha
+    function formatearFecha(fecha) {
+        if (!fecha) return '-';
+        const f = new Date(fecha);
+        return `${f.getDate().toString().padStart(2,'0')}/${(f.getMonth()+1).toString().padStart(2,'0')}/${f.getFullYear()}`;
+    }
+    
+    // Función para formatear fecha larga
+    function formatearFechaLarga(fecha) {
+        if (!fecha) return '-';
+        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        const f = new Date(fecha);
+        return `${f.getDate()} de ${meses[f.getMonth()]} de ${f.getFullYear()}`;
+    }
+    
+    // Mostrar notificación
+    function mostrarNotificacion(mensaje, tipo = 'info') {
+        let toast = document.querySelector('.toast-notification');
+        if (toast) toast.remove();
+        
+        toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        if (tipo === 'success') toast.classList.add('success');
+        if (tipo === 'error') toast.classList.add('error');
+        toast.textContent = mensaje;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+    
+    // Cargar datos del historial desde localStorage
+    function cargarHistorial() {
+        const stored = localStorage.getItem('sistemaJustificantes');
+        if (stored && stored !== '[]') {
+            datosCompletos = JSON.parse(stored);
+        } else {
+            // Datos de ejemplo si no hay nada
+            datosCompletos = [
+                { id: 101, folio: 'JUS-001', alumno: 'Ana López García', matricula: 'MAT-001', grado: '4°', grupo: 'A', email: 'ana.lopez@alumno.edu.mx', motivo: 'Justificante médico', descripcion: 'Cirugía programada', fechaInicio: '2026-04-20', fechaFin: '2026-04-22', dias: 3, estado: 'pendiente', fechaRegistro: '2026-04-15', documentoNombre: 'certificado_medico.pdf' },
+                { id: 102, folio: 'JUS-002', alumno: 'Carlos Ramírez', matricula: 'MAT-089', grado: '2°', grupo: 'B', email: 'carlos.ramirez@alumno.edu.mx', motivo: 'Permiso particular', descripcion: 'Trámite personal', fechaInicio: '2026-04-18', fechaFin: '2026-04-18', dias: 1, estado: 'aprobado', fechaRegistro: '2026-04-14', documentoNombre: 'carta_permiso.pdf' },
+                { id: 103, folio: 'JUS-003', alumno: 'Laura Mendoza', matricula: 'MAT-045', grado: '6°', grupo: 'A', email: 'laura.mendoza@alumno.edu.mx', motivo: 'Actividad escolar', descripcion: 'Concurso de robótica', fechaInicio: '2026-04-25', fechaFin: '2026-04-25', dias: 1, estado: 'pendiente', fechaRegistro: '2026-04-14', documentoNombre: 'actividad.pdf' },
+                { id: 104, folio: 'JUS-004', alumno: 'Diego Flores Torres', matricula: 'MAT-004', grado: '5°', grupo: 'C', email: 'diego.flores@alumno.edu.mx', motivo: 'Representación deportiva', descripcion: 'Competencia estatal de atletismo', fechaInicio: '2026-05-10', fechaFin: '2026-05-12', dias: 3, estado: 'aprobado', fechaRegistro: '2026-05-05', documentoNombre: 'carta_competencia.pdf' }
+            ];
+            localStorage.setItem('sistemaJustificantes', JSON.stringify(datosCompletos));
+        }
+        actualizarResumen();
+        renderizarTabla();
+    }
+    
+    // Actualizar tarjetas de resumen
+    function actualizarResumen() {
+        const total = datosCompletos.length;
+        const aprobados = datosCompletos.filter(s => s.estado === 'aprobado').length;
+        const pendientes = datosCompletos.filter(s => s.estado === 'pendiente').length;
+        const rechazados = datosCompletos.filter(s => s.estado === 'rechazado').length;
+        
+        document.getElementById('totalCount').innerText = total;
+        document.getElementById('aprobadosCount').innerText = aprobados;
+        document.getElementById('pendientesCount').innerText = pendientes;
+        document.getElementById('rechazadosCount').innerText = rechazados;
+    }
+    
+    // Renderizar tabla con filtros
+    function renderizarTabla() {
+        const search = document.getElementById('searchHistorial').value.toLowerCase();
+        const estado = document.getElementById('estadoHistorial').value;
+        const grupo = document.getElementById('grupoHistorial').value.toLowerCase();
+        const grado = document.getElementById('gradoHistorial').value;
+        const fechaDesde = document.getElementById('fechaDesdeHistorial').value;
+        const fechaHasta = document.getElementById('fechaHastaHistorial').value;
+        
+        let filtrados = datosCompletos.filter(s => {
+            if (search && !s.alumno.toLowerCase().includes(search) && !s.folio.toLowerCase().includes(search) && !s.matricula.toLowerCase().includes(search)) return false;
+            if (estado !== 'todos' && s.estado !== estado) return false;
+            if (grupo && !s.grupo.toLowerCase().includes(grupo)) return false;
+            if (grado !== 'todos' && s.grado !== grado) return false;
+            if (fechaDesde && s.fechaRegistro < fechaDesde) return false;
+            if (fechaHasta && s.fechaRegistro > fechaHasta) return false;
+            return true;
+        });
+        
+        const tbody = document.getElementById('tbodyHistorial');
+        if (!tbody) return;
+        
+        if (filtrados.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="12" style="text-align:center; padding:2rem; color:#B38E5D;">📭 No hay registros que coincidan con los filtros</td></tr>';
+            return;
+        }
+        
+        tbody.innerHTML = filtrados.map(s => `
+            <tr>
+                <td><strong style="color:#9D2449;">${s.folio}</strong></td>
+                <td><strong>${s.alumno}</strong></td>
+                <td>${s.matricula}</td>
+                <td>${s.grado}</td>
+                <td>${s.grupo}</td>
+                <td><small>${s.email || '-'}</small></td>
+                <td>${s.motivo}</td>
+                <td>${s.dias}</td>
+                <td>${s.fechaInicio ? formatearFecha(s.fechaInicio) + ' al ' + formatearFecha(s.fechaFin) : '-'}</td>
+                <td><span class="badge ${s.estado}">${s.estado.toUpperCase()}</span></td>
+                <td>${formatearFecha(s.fechaRegistro)}</td>
+                <td class="acciones-historial">
+                    <button class="btn-icon btn-ver" data-id="${s.id}" title="Ver detalles">👁️</button>
+                    <button class="btn-icon btn-email" data-email="${s.email || ''}" data-nombre="${s.alumno}" title="Enviar por correo">✉️</button>
+                    ${s.estado === 'aprobado' ? `<button class="btn-icon btn-pdf" data-id="${s.id}" title="Ver/Imprimir justificante">📄</button>` : ''}
+                </td>
+            </tr>
+        `).join('');
+        
+        // Event listener para ver detalles
+        document.querySelectorAll('.btn-ver').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = parseInt(btn.dataset.id);
+                const justi = datosCompletos.find(s => s.id === id);
+                if (justi) mostrarDetalle(justi);
+            });
+        });
+        
+        // Event listener para enviar email
+        document.querySelectorAll('.btn-email').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const email = btn.dataset.email;
+                const nombre = btn.dataset.nombre;
+                if (email && email !== '-') {
+                    const asunto = encodeURIComponent(`Justificante CBTIS 199 - ${nombre}`);
+                    const cuerpo = encodeURIComponent(`Estimado(a) ${nombre},\n\nLe informamos que su justificante ha sido procesado. Para más detalles, consulte el sistema.\n\nAtentamente,\nServicios Escolares CBTIS 199`);
+                    window.location.href = `mailto:${email}?subject=${asunto}&body=${cuerpo}`;
+                    mostrarNotificacion(`✉️ Abriendo correo para ${email}`, 'success');
+                } else {
+                    mostrarNotificacion('❌ No hay correo registrado para este alumno', 'error');
+                }
+            });
+        });
+        
+        // Event listener para ver justificante PDF (solo aprobados)
+        document.querySelectorAll('.btn-pdf').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = parseInt(btn.dataset.id);
+                const justi = datosCompletos.find(s => s.id === id);
+                if (justi && justi.estado === 'aprobado') {
+                    const datosJustificante = {
+                        id: justi.id,
+                        folio: justi.folio,
+                        alumno: { 
+                            nombre: justi.alumno, 
+                            matricula: justi.matricula, 
+                            grupo: `${justi.grado} "${justi.grupo}"`, 
+                            email: justi.email 
+                        },
+                        tipo: justi.motivo,
+                        periodoAusencia: { 
+                            inicio: justi.fechaInicio, 
+                            fin: justi.fechaFin 
+                        },
+                        diasAutorizados: justi.diasAutorizados || justi.dias,
+                        comentario: justi.comentarioAprobacion || justi.descripcion || 'Sin comentarios',
+                        fechaAprobacion: justi.fechaAprobacion || justi.fechaRegistro
+                    };
+                    sessionStorage.setItem('justificanteAprobado', JSON.stringify(datosJustificante));
+                    window.open('generar-permiso.html', '_blank');
+                } else {
+                    mostrarNotificacion('Solo se pueden ver justificantes aprobados', 'error');
+                }
+            });
+        });
+    }
+    
+    // Mostrar modal con detalles del justificante
+    function mostrarDetalle(justi) {
+        const modal = document.getElementById('modalDetalle');
+        const body = document.getElementById('detalleBody');
+        
+        body.innerHTML = `
+            <div class="detalle-item">
+                <label>📋 Folio</label>
+                <span>${justi.folio}</span>
+            </div>
+            <div class="detalle-item">
+                <label>👨‍🎓 Alumno</label>
+                <span>${justi.alumno}</span>
+            </div>
+            <div class="detalle-item">
+                <label>🆔 Matrícula</label>
+                <span>${justi.matricula}</span>
+            </div>
+            <div class="detalle-item">
+                <label>📚 Grado y Grupo</label>
+                <span>${justi.grado} - ${justi.grupo}</span>
+            </div>
+            <div class="detalle-item">
+                <label>✉️ Correo electrónico</label>
+                <span>${justi.email || 'No registrado'}</span>
+            </div>
+            <div class="detalle-item">
+                <label>📝 Motivo</label>
+                <span>${justi.motivo}</span>
+            </div>
+            <div class="detalle-item">
+                <label>📅 Período de ausencia</label>
+                <span>${justi.fechaInicio ? formatearFechaLarga(justi.fechaInicio) + ' al ' + formatearFechaLarga(justi.fechaFin) : 'No especificado'}</span>
+            </div>
+            <div class="detalle-item">
+                <label>⏱️ Días justificados</label>
+                <span>${justi.dias} día(s)</span>
+            </div>
+            <div class="detalle-item">
+                <label>📄 Descripción</label>
+                <span>${justi.descripcion || 'Sin descripción'}</span>
+            </div>
+            <div class="detalle-item">
+                <label>📎 Documento adjunto</label>
+                <span>${justi.documentoNombre ? `📄 ${justi.documentoNombre}` : 'Sin documento'}</span>
+            </div>
+            <div class="detalle-item">
+                <label>🏷️ Estado actual</label>
+                <span><span class="badge ${justi.estado}">${justi.estado.toUpperCase()}</span></span>
+            </div>
+            <div class="detalle-item">
+                <label>📅 Fecha de registro</label>
+                <span>${formatearFechaLarga(justi.fechaRegistro)}</span>
+            </div>
+            ${justi.comentarioAprobacion ? `
+            <div class="detalle-item">
+                <label>✅ Comentario de aprobación</label>
+                <span>${justi.comentarioAprobacion}</span>
+            </div>
+            ` : ''}
+            ${justi.comentarioRechazo ? `
+            <div class="detalle-item">
+                <label>❌ Motivo de rechazo</label>
+                <span>${justi.comentarioRechazo}</span>
+            </div>
+            ` : ''}
+        `;
+        
+        modal.style.display = 'flex';
+    }
+    
+    // Exportar a Excel (CSV)
+    function exportarAExcel() {
+        const search = document.getElementById('searchHistorial').value.toLowerCase();
+        const estado = document.getElementById('estadoHistorial').value;
+        const grupo = document.getElementById('grupoHistorial').value.toLowerCase();
+        const grado = document.getElementById('gradoHistorial').value;
+        const fechaDesde = document.getElementById('fechaDesdeHistorial').value;
+        const fechaHasta = document.getElementById('fechaHastaHistorial').value;
+        
+        let datosExportar = datosCompletos.filter(s => {
+            if (search && !s.alumno.toLowerCase().includes(search) && !s.folio.toLowerCase().includes(search)) return false;
+            if (estado !== 'todos' && s.estado !== estado) return false;
+            if (grupo && !s.grupo.toLowerCase().includes(grupo)) return false;
+            if (grado !== 'todos' && s.grado !== grado) return false;
+            if (fechaDesde && s.fechaRegistro < fechaDesde) return false;
+            if (fechaHasta && s.fechaRegistro > fechaHasta) return false;
+            return true;
+        });
+        
+        // Crear CSV
+        let csv = "\uFEFFFolio,Alumno,Matrícula,Grado,Grupo,Correo,Motivo,Días,Fecha Inicio,Fecha Fin,Estado,Fecha Registro\n";
+        datosExportar.forEach(s => {
+            const fila = [
+                `"${s.folio}"`,
+                `"${s.alumno}"`,
+                `"${s.matricula}"`,
+                `"${s.grado}"`,
+                `"${s.grupo}"`,
+                `"${s.email || ''}"`,
+                `"${s.motivo}"`,
+                s.dias,
+                s.fechaInicio || '',
+                s.fechaFin || '',
+                `"${s.estado}"`,
+                s.fechaRegistro
+            ].join(',');
+            csv += fila + '\n';
+        });
+        
+        // Descargar archivo
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.setAttribute('download', `historial_justificantes_${new Date().toISOString().slice(0,10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        mostrarNotificacion('✅ Historial exportado a Excel', 'success');
+    }
+    
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        cargarHistorial();
+        
+        document.getElementById('volverBtn').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+        
+        document.getElementById('exportarExcelBtn').addEventListener('click', exportarAExcel);
+        document.getElementById('filtrarBtn').addEventListener('click', renderizarTabla);
+        document.getElementById('searchHistorial').addEventListener('keyup', renderizarTabla);
+        document.getElementById('estadoHistorial').addEventListener('change', renderizarTabla);
+        document.getElementById('grupoHistorial').addEventListener('keyup', renderizarTabla);
+        document.getElementById('gradoHistorial').addEventListener('change', renderizarTabla);
+        document.getElementById('fechaDesdeHistorial').addEventListener('change', renderizarTabla);
+        document.getElementById('fechaHastaHistorial').addEventListener('change', renderizarTabla);
+        
+        // Cerrar modal de detalle
+        document.getElementById('cerrarDetalleBtn').addEventListener('click', () => {
+            document.getElementById('modalDetalle').style.display = 'none';
+        });
+        
+        // Cerrar modal haciendo clic fuera
+        document.getElementById('modalDetalle').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modalDetalle')) {
+                document.getElementById('modalDetalle').style.display = 'none';
+            }
+        });
+    });
+</script>
+</body>
+</html>

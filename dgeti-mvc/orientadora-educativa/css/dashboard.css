@@ -1,0 +1,463 @@
+/* =============================================
+   DASHBOARD PRINCIPAL - CBTIS 199
+   ============================================= */
+
+/* ----- HEADER ----- */
+.header {
+    background: linear-gradient(135deg, #621132, #9D2449);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+.header-left h1 {
+    font-size: 1.3rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.rol-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-name {
+    font-size: 0.9rem;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    background: #B38E5D;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #4E232E;
+}
+
+.logout-btn, .btn-config {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.5);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover, .btn-config:hover {
+    background-color: white;
+    color: #621132;
+    border-color: white;
+}
+
+.btn-config {
+    background: #B38E5D;
+    border: none;
+}
+.btn-config:hover {
+    background: white;
+}
+
+/* ----- MAIN CONTAINER ----- */
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ----- TARJETAS DE ESTADÍSTICAS ----- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 5px solid #9D2449;
+    cursor: pointer;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    background: #f8f5ed;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-info h3 {
+    font-size: 0.85rem;
+    color: #B38E5D;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4E232E;
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* ----- FILTROS ----- */
+.filtros-container {
+    background: white;
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.filtros-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: flex-end;
+}
+
+.filtro-group {
+    flex: 1;
+    min-width: 150px;
+}
+
+.filtro-group label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #4E232E;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+}
+
+.filtro-select, .filtro-fecha {
+    padding: 0.6rem 1rem;
+    border: 1px solid #D4C19C;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: white;
+    cursor: pointer;
+    color: #4E232E;
+    flex: 1;
+    min-width: 130px;
+}
+
+.btn-filtrar {
+    background: #9D2449;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.btn-filtrar:hover {
+    background: #621132;
+}
+
+.vistas-rapidas {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    padding-top: 0.5rem;
+    border-top: 1px solid #D4C19C;
+}
+
+.vista-btn {
+    background: #f0f0f0;
+    border: none;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    color: #4E232E;
+}
+.vista-btn:hover {
+    background: #9D2449;
+    color: white;
+}
+
+/* ----- TABLA ----- */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+}
+
+.solicitudes-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.solicitudes-table thead {
+    background: #ffffff;
+    border-bottom: 2px solid #D4C19C;
+}
+
+.solicitudes-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #4E232E;
+}
+
+.solicitudes-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #D4C19C;
+}
+
+.solicitudes-table tbody tr:hover {
+    background: rgba(180,142,93,0.05);
+}
+
+/* ----- BADGES ----- */
+.badge-pendiente {
+    background: rgba(179,142,93,0.15);
+    color: #B38E5D;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    display: inline-block;
+}
+
+.badge-aprobado {
+    background: rgba(157,36,73,0.1);
+    color: #9D2449;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    display: inline-block;
+}
+
+.badge-rechazado {
+    background: rgba(98,17,50,0.1);
+    color: #621132;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    display: inline-block;
+}
+
+/* ----- ACCIONES ----- */
+.acciones {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-aprobar, .btn-rechazar, .btn-ver, .btn-editar {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+.btn-aprobar { color: #9D2449; }
+.btn-rechazar { color: #621132; }
+.btn-ver { color: #B38E5D; }
+.btn-editar { color: #B38E5D; }
+.btn-aprobar:hover, .btn-rechazar:hover, .btn-ver:hover, .btn-editar:hover {
+    background: rgba(0,0,0,0.05);
+    transform: scale(1.1);
+}
+
+/* ========== RESPONSIVE DASHBOARD ========== */
+/* Celulares (menos de 768px) */
+@media (max-width: 768px) {
+    /* Header responsivo */
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .header-left {
+        flex-direction: column;
+    }
+    
+    .header-right {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    /* Contenedor principal */
+    .main-container {
+        padding: 1rem;
+    }
+    
+    /* Tarjetas de estadísticas - 2 columnas en móvil */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+    
+    .stat-card {
+        padding: 0.8rem;
+    }
+    
+    .stat-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.8rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    /* Filtros en columna */
+    .filtros-row {
+        flex-direction: column;
+    }
+    
+    .filtro-group {
+        width: 100%;
+    }
+    
+    .btn-filtrar {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+    
+    /* Vistas rápidas */
+    .vistas-rapidas {
+        justify-content: center;
+    }
+    
+    .vista-btn {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Tabla - scroll horizontal */
+    .table-container {
+        border-radius: 12px;
+    }
+    
+    .solicitudes-table th,
+    .solicitudes-table td {
+        padding: 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Botón agregar */
+    .btn-agregar-flotante {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    /* Acciones de tabla */
+    .acciones {
+        gap: 0.3rem;
+    }
+    
+    .btn-aprobar, .btn-rechazar, .btn-ver, .btn-editar {
+        font-size: 1rem;
+        padding: 0.2rem;
+    }
+}
+
+/* Tabletas (768px a 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .main-container {
+        padding: 1.5rem;
+    }
+    
+    .filtros-row {
+        gap: 0.8rem;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;  /* Una sola columna */
+    }
+    
+    .header-left h1 {
+        font-size: 1.1rem;
+    }
+    
+    .stat-card {
+        padding: 0.6rem;
+    }
+    
+    .stat-number {
+        font-size: 1.3rem;
+    }
+    
+    .solicitudes-table th,
+    .solicitudes-table td {
+        padding: 0.4rem;
+        font-size: 0.7rem;
+    }
+}
