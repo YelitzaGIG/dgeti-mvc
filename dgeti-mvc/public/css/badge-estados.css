@@ -1,8 +1,0 @@
-/* ── Badges de estado (nuevos estados del esquema) ── */
-.badge-generado  { background: #FFF8EC; color: #8A5C00; border: 1px solid #F5D97A; }
-.badge-pendiente { background: #F0EAFF; color: #5B21B6; border: 1px solid #C4B5FD; }
-.badge-entregado { background: #EAF3FF; color: #0F5FA8; border: 1px solid #9DC5F5; }
-.badge-aprobado  { background: #EDF7F1; color: #1E7A42; border: 1px solid #78C994; }
-.badge-rechazado { background: #FDEEF0; color: #C0182B; border: 1px solid #F5A0AA; }
-/* Alias retrocompatibles */
-.badge-validado  { background: #EDF7F1; color: #1E7A42; border: 1px solid #78C994; }
