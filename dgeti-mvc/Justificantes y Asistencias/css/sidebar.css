@@ -1,0 +1,382 @@
+/* =============================================
+   sidebar.css — CBTIS 199
+   Barra lateral de navegación — Diseño profesional
+   ============================================= */
+
+:root {
+  --sidebar-width:     248px;
+  --sidebar-collapsed: 64px;
+  --sidebar-bg:        #2A0812;
+  --sidebar-surface:   rgba(255,255,255,0.04);
+  --sidebar-border:    rgba(212,193,156,0.10);
+  --sidebar-active-bg: rgba(179,142,93,0.14);
+  --sidebar-hover-bg:  rgba(255,255,255,0.05);
+  --sidebar-text:      rgba(212,193,156,0.70);
+  --sidebar-text-active: #E8D8B8;
+  --sidebar-accent:    #C8A070;
+  --sidebar-section:   rgba(212,193,156,0.35);
+  --sidebar-badge-bg:  #9D2449;
+  --transition:        0.22s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── LAYOUT PRINCIPAL ── */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.with-sidebar {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar-content {
+  flex: 1;
+  min-width: 0;
+  background: var(--color-bg, #F7F3EE);
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+/* ── SIDEBAR WRAPPER ── */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 200;
+  border-right: 1px solid var(--sidebar-border);
+  transition: width var(--transition);
+  background-image:
+    radial-gradient(ellipse at 0% 0%, rgba(157,36,73,0.20) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(98,17,50,0.15) 0%, transparent 50%);
+}
+
+/* ── HEADER ── */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 16px 18px;
+  border-bottom: 1px solid var(--sidebar-border);
+  min-height: 68px;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.sidebar-brand {
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar-brand-title {
+  display: block;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sidebar-text-active);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.sidebar-brand-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--sidebar-section);
+  margin-top: 2px;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: var(--sidebar-text);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: background var(--transition), color var(--transition);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar-toggle:hover {
+  background: var(--sidebar-hover-bg);
+  color: var(--sidebar-text-active);
+}
+
+/* ── NAVEGACIÓN ── */
+.sidebar-nav {
+  flex: 1;
+  padding: 10px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar-section-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sidebar-section);
+  padding: 14px 18px 5px;
+  font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 18px;
+  text-decoration: none;
+  color: var(--sidebar-text);
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  white-space: nowrap;
+  position: relative;
+  border-radius: 0 8px 8px 0;
+  margin: 1px 8px 1px 0;
+}
+
+.sidebar-link:hover {
+  background: var(--sidebar-hover-bg);
+  color: var(--sidebar-text-active);
+}
+
+.sidebar-link.active {
+  background: var(--sidebar-active-bg);
+  color: var(--sidebar-text-active);
+  border-left-color: var(--sidebar-accent);
+  font-weight: 600;
+}
+
+/* Icono SVG inline */
+.sidebar-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.75;
+  transition: opacity var(--transition);
+}
+
+.sidebar-link:hover .sidebar-icon,
+.sidebar-link.active .sidebar-icon {
+  opacity: 1;
+}
+
+.sidebar-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sidebar-link-text {
+  flex: 1;
+}
+
+/* Badge de notificación */
+.sidebar-badge {
+  margin-left: auto;
+  background: var(--sidebar-badge-bg);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-family: 'DM Sans', sans-serif;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ── PIE ── */
+.sidebar-footer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--sidebar-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  background: rgba(0,0,0,0.12);
+}
+
+.sidebar-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C8A070, #B38E5D);
+  color: #2A0812;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: 'Playfair Display', serif;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.sidebar-user-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sidebar-text-active);
+  font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.sidebar-user-role {
+  font-size: 10px;
+  color: var(--sidebar-section);
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sidebar-logout {
+  color: var(--sidebar-section);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding: 7px;
+  border-radius: 8px;
+  transition: color var(--transition), background var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar-logout:hover {
+  color: #E07070;
+  background: rgba(224,112,112,0.12);
+}
+.sidebar-logout svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── OVERLAY MÓVIL ── */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 199;
+  backdrop-filter: blur(1px);
+}
+.sidebar-overlay.visible { display: block; }
+
+/* ── CONTAINER DENTRO DEL SIDEBAR ── */
+.with-sidebar .sidebar-content .container {
+  max-width: 100%;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+/* ── BARRA SUPERIOR MÓVIL ── */
+.mobile-topbar {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--color-primary, #621132);
+  border-bottom: 1px solid rgba(212,193,156,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.mobile-topbar-btn {
+  background: none;
+  border: none;
+  color: #D4C19C;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobile-topbar-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.mobile-topbar-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #D4C19C;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  html, body { overflow: auto; }
+  .with-sidebar { height: auto; overflow: visible; }
+  .sidebar-content { height: auto; overflow-y: visible; }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform var(--transition);
+    z-index: 300;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .sidebar-content {
+    width: 100%;
+  }
+  .mobile-topbar {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-topbar { display: none !important; }
+}

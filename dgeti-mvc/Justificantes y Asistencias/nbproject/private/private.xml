@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/css/estilos.css</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Controlador/ExportarControlador.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Vista/historial.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Vista/justificantes.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/index.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Controlador/LoginControlador.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Controlador/DocenteControlador.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Vista/exportar.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/js/historial.js</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Modelo/HistorialModelo.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/css/sidebar.css</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Vista/panel_docente.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/config/conexion.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/config/config.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Controlador/Usuariocontrolador.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Controlador/HistorialControlador.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/js/exportar.js</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Controlador/JustificanteControlador.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Modelo/ExportarModelo.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Vista/layout/sidebar.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Modelo/AsistenciaModelo.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Vista/dashboard.php</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/js/asistencia.js</file>
+            <file>file:/C:/xampp/htdocs/Justificantes%20y%20Asistencias/Vista/detalle_justificante.php</file>
+        </group>
+    </open-files>
+</project-private>
