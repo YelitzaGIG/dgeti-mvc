@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - Servicios Escolares</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/configuracion.css">
+    <link rel="stylesheet" href="css/componentes.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <img src="assets/cbtis199-logoytexto.png" alt="CBTIS 199" class="logo">
+            <h1>Servicios Escolares</h1>
+        </div>
+        <div class="header-right">
+            <span class="rol-badge">Jefa de Servicios Escolares</span>
+            <div class="user-info">
+                <span class="user-name">María González</span>
+                <div class="user-avatar">MG</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">Salir</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="config-container">
+        
+        <div class="config-header">
+            <h1>
+                <span>⚙️</span>
+                Panel de Configuración
+            </h1>
+            <div class="config-actions">
+                <button class="btn-volver" id="volverBtn">← Volver al Dashboard</button>
+            </div>
+        </div>
+
+        <!-- Pestañas de configuración -->
+        <div class="config-tabs">
+            <button class="config-tab active" data-tab="tipos">📋 Tipos de Permiso</button>
+            <button class="config-tab" data-tab="notificaciones">📧 Notificaciones</button>
+            <button class="config-tab" data-tab="formato">📄 Formato de Permiso</button>
+            <button class="config-tab" data-tab="seguridad">🔒 Seguridad</button>
+        </div>
+
+        <!-- ===== PANEL 1: TIPOS DE PERMISO ===== -->
+        <div class="config-panel active" id="panel-tipos">
+            <div class="panel-header">
+                <h2>📋 Tipos de Permiso Válidos</h2>
+                <button class="btn-agregar" id="agregarTipoBtn">➕ Agregar nuevo tipo</button>
+            </div>
+
+            <div class="tipos-lista" id="tiposLista">
+                <!-- Tipos cargados por JavaScript -->
+            </div>
+
+            <div class="info-nota">
+                💡 Nota: Los días máximos no pueden exceder los 30 días por permiso.
+            </div>
+        </div>
+
+        <!-- ===== PANEL 2: NOTIFICACIONES ===== -->
+        <div class="config-panel" id="panel-notificaciones">
+            <div class="panel-header">
+                <h2>📧 Configuración de Notificaciones</h2>
+            </div>
+
+            <div class="config-form">
+                <div class="config-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="notificarAprobacion" checked>
+                        <span>📨 Enviar correo al aprobar un permiso</span>
+                    </label>
+                    <p class="config-desc">El solicitante recibirá un correo con el permiso oficial adjunto</p>
+                </div>
+
+                <div class="config-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="notificarRechazo" checked>
+                        <span>❌ Enviar correo al rechazar un permiso</span>
+                    </label>
+                    <p class="config-desc">El solicitante recibirá un correo explicando el motivo del rechazo</p>
+                </div>
+
+                <div class="config-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="notificarRH" checked>
+                        <span>🏢 Notificar a Recursos Humanos automáticamente</span>
+                    </label>
+                    <p class="config-desc">Se enviará una copia al departamento de RH</p>
+                </div>
+
+                <div class="config-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="notificarJefe">
+                        <span>👔 Notificar al jefe inmediato</span>
+                    </label>
+                    <p class="config-desc">El jefe del departamento recibirá una notificación</p>
+                </div>
+
+                <div class="config-group">
+                    <label>📧 Correo adicional para copia (opcional):</label>
+                    <input type="email" id="correoCopia" placeholder="ejemplo@cbtis199.edu.mx" class="config-input">
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 3: FORMATO DE PERMISO ===== -->
+        <div class="config-panel" id="panel-formato">
+            <div class="panel-header">
+                <h2>📄 Personalizar Formato de Permiso Oficial</h2>
+            </div>
+
+            <div class="config-form">
+                <div class="config-group">
+                    <label>🏢 Nombre de la institución:</label>
+                    <input type="text" id="institucionNombre" value="CENTRO DE BACHILLERATO TECNOLÓGICO INDUSTRIAL Y DE SERVICIOS No. 199" class="config-input">
+                </div>
+
+                <div class="config-group">
+                    <label>📋 Encabezado del documento:</label>
+                    <input type="text" id="encabezadoTexto" value="SERVICIOS ESCOLARES - PERMISO OFICIAL" class="config-input">
+                </div>
+
+                <div class="config-group">
+                    <label>✍️ Texto de la firma:</label>
+                    <input type="text" id="textoFirma" value="Jefa de Servicios Escolares" class="config-input">
+                </div>
+
+                <div class="config-group">
+                    <label>📎 Subir logotipo personalizado:</label>
+                    <input type="file" id="subirLogo" accept="image/png, image/jpeg" class="config-input-file">
+                    <button class="btn-secundario" id="restaurarLogoBtn">Restaurar logo original</button>
+                </div>
+
+                <div class="config-group">
+                    <label>📄 Plantilla del permiso (opcional):</label>
+                    <input type="file" id="subirPlantilla" accept=".html,.pdf">
+                    <p class="config-desc">Sube tu propia plantilla HTML o deja la predeterminada</p>
+                </div>
+
+                <div class="preview-link">
+                    <a href="#" id="vistaPreviaBtn" target="_blank">👁️ Vista previa del permiso</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 4: SEGURIDAD ===== -->
+        <div class="config-panel" id="panel-seguridad">
+            <div class="panel-header">
+                <h2>🔒 Seguridad y Accesos</h2>
+            </div>
+
+            <div class="config-form">
+                <div class="config-group">
+                    <label>🔐 Cambiar contraseña:</label>
+                    <input type="password" id="nuevaPassword" placeholder="Nueva contraseña" class="config-input">
+                    <input type="password" id="confirmarPassword" placeholder="Confirmar contraseña" class="config-input">
+                </div>
+
+                <div class="config-group">
+                    <label>⏰ Tiempo de sesión (minutos):</label>
+                    <input type="number" id="tiempoSesion" value="480" min="30" max="720" class="config-input" style="width: 150px;">
+                    <p class="config-desc">Tiempo máximo de inactividad antes de cerrar sesión</p>
+                </div>
+
+                <div class="config-group">
+                    <label>📊 Exportar datos del sistema:</label>
+                    <button class="btn-secundario" id="exportarDatosBtn">📥 Exportar todos los datos</button>
+                </div>
+
+                <div class="config-group peligro">
+                    <label>⚠️ Zona de peligro:</label>
+                    <button class="btn-peligro" id="resetearConfigBtn">🔄 Restablecer configuración por defecto</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones globales de guardado -->
+        <div class="config-footer">
+            <button class="btn-cancelar" id="cancelarBtn">Cancelar</button>
+            <button class="btn-guardar" id="guardarBtn">💾 Guardar todos los cambios</button>
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/configuracion.js"></script>
+</body>
+</html>

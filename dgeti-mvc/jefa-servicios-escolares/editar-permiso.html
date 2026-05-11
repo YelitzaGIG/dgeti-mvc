@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Permiso</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/componentes.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="assets/cbtis199-logoytexto.png" alt="CBTIS 199" class="logo">
+            <h1>Editar Permiso</h1>
+        </div>
+        <div class="header-right">
+            <button class="logout-btn" id="volverBtn">← Volver</button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="form-container" style="max-width: 600px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 16px;">
+            <form id="editarForm">
+                <div class="form-group">
+                    <label>Tipo de personal</label>
+                    <select id="tipo_personal" class="filtro-select" required>
+                        <option value="docente">Docente</option>
+                        <option value="administrativo">Administrativo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tipo de permiso</label>
+                    <select id="tipo_permiso" class="filtro-select" required>
+                        <option value="licencia_medica">Licencia médica</option>
+                        <option value="permiso_particular">Permiso particular</option>
+                        <option value="capacitacion">Capacitación</option>
+                        <option value="comision_oficial">Comisión oficial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Motivo</label>
+                    <textarea id="motivo" rows="3" class="filtro-fecha" style="width: 100%;" required></textarea>
+                </div>
+                <div class="form-row" style="display: flex; gap: 1rem;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Fecha inicio</label>
+                        <input type="date" id="fecha_inicio" class="filtro-fecha" style="width: 100%;" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Fecha fin</label>
+                        <input type="date" id="fecha_fin" class="filtro-fecha" style="width: 100%;" required>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-success" style="flex: 1;">💾 Guardar cambios</button>
+                    <button type="button" class="btn btn-outline" id="cancelarBtn" style="flex: 1;">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const API_URL = 'http://localhost/Integrador/jefa-servicios-escolares/backend/api';
+        const urlParams = new URLSearchParams(window.location.search);
+        const permisoId = urlParams.get('id');
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!permisoId) {
+                alert('No se especificó el permiso');
+                window.location.href = 'index.html';
+                return;
+            }
+            await cargarDatos();
+            inicializarEventos();
+        });
+
+        async function cargarDatos() {
+            const resp = await fetch(`${API_URL}/permisos/detalle.php?id=${permisoId}`);
+            const data = await resp.json();
+            
+            document.getElementById('tipo_personal').value = data.tipo_personal;
+            document.getElementById('tipo_permiso').value = data.tipo_permiso;
+            document.getElementById('motivo').value = data.motivo;
+            document.getElementById('fecha_inicio').value = data.fecha_inicio;
+            document.getElementById('fecha_fin').value = data.fecha_fin;
+        }
+
+        function inicializarEventos() {
+            document.getElementById('editarForm').addEventListener('submit', guardarCambios);
+            document.getElementById('volverBtn').addEventListener('click', () => window.location.href = 'index.html');
+            document.getElementById('cancelarBtn').addEventListener('click', () => window.location.href = 'index.html');
+        }
+
+        async function guardarCambios(e) {
+            e.preventDefault();
+            
+            const datos = {
+                id: parseInt(permisoId),
+                tipo_personal: document.getElementById('tipo_personal').value,
+                tipo_permiso: document.getElementById('tipo_permiso').value,
+                motivo: document.getElementById('motivo').value,
+                fecha_inicio: document.getElementById('fecha_inicio').value,
+                fecha_fin: document.getElementById('fecha_fin').value
+            };
+            
+            const resp = await fetch(`${API_URL}/permisos/editar.php`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datos)
+            });
+            
+            const result = await resp.json();
+            
+            if (result.success) {
+                alert('✅ Permiso actualizado');
+                window.location.href = 'index.html';
+            } else {
+                alert('❌ Error: ' + result.error);
+            }
+        }
+    </script>
+</body>
+</html>

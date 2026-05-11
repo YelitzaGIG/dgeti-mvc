@@ -1,0 +1,405 @@
+/* ===== PANEL DE CONFIGURACIÓN ===== */
+
+.config-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* Header */
+.config-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.config-header h1 {
+    color: #4E232E;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.btn-volver {
+    background: #9D2449;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-volver:hover {
+    background: #621132;
+}
+
+/* Pestañas */
+.config-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #D4C19C;
+    flex-wrap: wrap;
+}
+
+.config-tab {
+    background: none;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #4E232E;
+    transition: all 0.2s;
+    border-radius: 8px 8px 0 0;
+}
+
+.config-tab.active {
+    color: #9D2449;
+    font-weight: bold;
+    border-bottom: 3px solid #9D2449;
+    background: rgba(157, 36, 73, 0.05);
+}
+
+.config-tab:hover:not(.active) {
+    color: #621132;
+    background: rgba(98, 17, 50, 0.05);
+}
+
+/* Paneles */
+.config-panel {
+    display: none;
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.config-panel.active {
+    display: block;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.panel-header h2 {
+    color: #4E232E;
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+/* Lista de tipos de permiso */
+.tipos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tipo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f5ed;
+    border-radius: 12px;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.tipo-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.tipo-info input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #9D2449;
+}
+
+.tipo-nombre {
+    font-weight: 600;
+    color: #4E232E;
+    min-width: 150px;
+}
+
+.tipo-dias {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tipo-dias input {
+    width: 70px;
+    padding: 0.3rem;
+    border: 1px solid #D4C19C;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.tipo-dias span {
+    font-size: 0.8rem;
+    color: #B38E5D;
+}
+
+.tipo-acciones {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-editar, .btn-eliminar {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.btn-editar:hover {
+    background: rgba(157, 36, 73, 0.1);
+    color: #9D2449;
+}
+
+.btn-eliminar:hover {
+    background: rgba(98, 17, 50, 0.1);
+    color: #621132;
+}
+
+/* Botón agregar */
+.btn-agregar {
+    background: #B38E5D;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.btn-agregar:hover {
+    background: #9D2449;
+}
+
+/* Formulario de configuración */
+.config-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.config-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.config-group label {
+    font-weight: 600;
+    color: #4E232E;
+}
+
+.config-input {
+    padding: 0.6rem;
+    border: 1px solid #D4C19C;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.config-input:focus {
+    outline: none;
+    border-color: #9D2449;
+}
+
+.config-input-file {
+    padding: 0.4rem 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.checkbox-label input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #9D2449;
+}
+
+.config-desc {
+    font-size: 0.75rem;
+    color: #B38E5D;
+    margin: 0;
+    padding-left: 1.8rem;
+}
+
+/* Botones secundarios */
+.btn-secundario {
+    background: #f0f0f0;
+    color: #4E232E;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    width: fit-content;
+}
+
+.btn-secundario:hover {
+    background: #D4C19C;
+}
+
+/* Zona de peligro */
+.peligro {
+    border-top: 1px solid #D4C19C;
+    padding-top: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.btn-peligro {
+    background: #621132;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    width: fit-content;
+}
+
+.btn-peligro:hover {
+    background: #4E232E;
+}
+
+/* Preview link */
+.preview-link {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.preview-link a {
+    color: #9D2449;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.preview-link a:hover {
+    text-decoration: underline;
+}
+
+/* Info nota */
+.info-nota {
+    background: rgba(179, 142, 93, 0.1);
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: #B38E5D;
+    margin-top: 1rem;
+}
+
+/* Footer de botones */
+.config-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #D4C19C;
+}
+
+.btn-cancelar {
+    background: #f0f0f0;
+    color: #4E232E;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-cancelar:hover {
+    background: #D4C19C;
+}
+
+.btn-guardar {
+    background: #9D2449;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-guardar:hover {
+    background: #621132;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .config-container {
+        padding: 0 1rem;
+    }
+    
+    .config-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .config-tabs {
+        flex-direction: column;
+        border-bottom: none;
+        gap: 0.3rem;
+    }
+    
+    .config-tab {
+        border-radius: 8px;
+        text-align: center;
+    }
+    
+    .config-tab.active {
+        border-bottom: none;
+        background: #9D2449;
+        color: white;
+    }
+    
+    .tipo-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .config-footer {
+        flex-direction: column;
+    }
+    
+    .btn-cancelar, .btn-guardar {
+        width: 100%;
+    }
+}
